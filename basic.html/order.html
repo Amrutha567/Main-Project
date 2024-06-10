@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Order Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <form id="orderForm" onsubmit="return validateForm()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required>
+
+    <label for="dish">Select a Dish:</label>
+    <select id="dish" name="dish">
+      <option value="">-- Please select --</option>
+      <option value="pizza">Pizza</option>
+      <option value="burger">Burger</option>
+      <option value="pasta">Pasta</option>
+    </select>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="1" required>
+
+    <input type="submit" value="Place Order">
+  </form>
+
+  <script>
+    function validateForm() {
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+      var dish = document.getElementById('dish').value;
+      var quantity = document.getElementById('quantity').value;
+
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (name.trim() == '' || email.trim() == '' || phone.trim() == '' || dish.trim() == '' || quantity.trim() == '') {
+        alert('Please fill in all fields.');
+        return false;
+      }
+
+      if (!email.match(emailPattern)) {
+        alert('Please enter a valid email address.');
+        return false;
+      }
+
+      if (isNaN(phone) || phone.length != 10) {
+        alert('Please enter a valid 10-digit phone number.');
+        return false;
+      }
+
+      if (isNaN(quantity) || quantity <= 0) {
+        alert('Please enter a valid quantity.');
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
